@@ -1,0 +1,19 @@
+---
+#- name: Creates destination directory
+#  file: state=directory mode=0700 dest=/home/lukasz/.ssh/ owner=lukasz group=lukasz
+
+#- name: Copy public ssh key
+#  copy: src=~/.ssh/id_rsa.pub dest=/home/lukasz/.ssh/authorized_keys owner=lukasz mode=0600
+
+- name: Update apt cache
+  command: apt-get update
+
+- name: Install python-software-properties
+  apt: pkg={{ item }} state=installed
+  with_items:
+  - python-software-properties
+  - software-properties-common
+  - vim
+  - curl
+  - mc
+

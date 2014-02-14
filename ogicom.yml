@@ -1,0 +1,12 @@
+---
+# file: webservers.yml
+- hosts: ogicom
+  sudo: True
+  sudo_user: root
+  vars:
+    vhost: man.drupal.local
+    admin_user: root
+  roles:
+    - common
+    - git
+    - php

@@ -1,0 +1,13 @@
+---
+# file: webservers.yml
+- hosts: webservers
+  sudo: yes
+  vars:
+    vhost: man.drupal.local
+    admin_user: lukasz
+  roles:
+    - common
+    - git
+    - php
+    - apache
+    - drupal

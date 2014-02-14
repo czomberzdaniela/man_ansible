@@ -1,0 +1,14 @@
+[webservers]
+#man[110:112].kielce.eu
+
+man110.kielce.eu
+#man111.kielce.eu
+#man112.kielce.eu
+
+
+[dbservers]
+#man130.kielce.eu
+#man131.kielce.eu
+
+[haproxy]
+man108.kielce.eu

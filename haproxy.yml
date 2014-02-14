@@ -1,0 +1,6 @@
+---
+# file: haproxy.yml
+- hosts: haproxy
+  sudo: yes
+  roles:
+    - haproxy

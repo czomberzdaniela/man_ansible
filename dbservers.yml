@@ -1,0 +1,7 @@
+---
+# file: dbservers.tml
+- hosts: dbservers
+  sudo: yes
+  roles:
+    - common
+    - db

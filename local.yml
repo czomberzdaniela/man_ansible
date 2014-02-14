@@ -1,0 +1,17 @@
+---
+# file: local.yml
+- hosts: local
+  sudo: yes
+  vars:
+    vhost: vm.drupal.local
+    admin_user: vagrant
+  roles:
+    - common
+    - sudo
+    - git
+    - php
+    - apache
+    - composer
+    - drupal
+    - db
+    - dev

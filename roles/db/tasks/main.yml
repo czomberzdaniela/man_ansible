@@ -1,0 +1,48 @@
+# Install server using preseeded file to set root password
+- name: Check for previous installation
+  shell: "[ -f /usr/sbin/mysqld ]"
+  ignore_errors: True
+  register: mysqld_exists
+
+- name: add apt-repository ondrej/mysql-5.5
+  raw: /usr/bin/add-apt-repository ppa:ondrej/mysql-5.5 -y
+
+- name: update cache
+  apt: update_cache=yes
+
+# 2) Preseed instyall options
+- name: Push rpessed file for debconf
+  template: src=mysql_seed.j2 dest=/root/mysql.seed
+  when: mysqld_exists|failed
+
+- name: Preseed mysql file
+  command: /usr/bin/debconf-set-selections /root/mysql.seed
+  when: mysqld_exists|failed
+
+# 3) Install
+- name: Install MySQL server and client
+  apt: pkg={{ item }} state=installed force=yes
+  with_items:
+  - mysql-server
+  when: mysqld_exists|failed
+
+- name: Ensure MySQL daemon is running
+  service: name=mysql state=started
+
+# 4) Cleanup
+- name: Delete mysql.seed file
+  command: /bin/rm /root/mysql.seed
+  ignore_errors: true
+
+# Secure installation
+- name: Ensure python mysql is installed
+  apt: pkg=python-mysqldb state=installed force=yes
+
+- name: remove empty password users
+  mysql_user: name='' password='' host=localhost priv=*.*:USAGE state=absent login_user=root login_password={{ mysql_root_password }}
+
+- name: Remove the MySQL test database
+  mysql_db: db=test state=absent login_user=root login_password={{ mysql_root_password }}
+
+
+

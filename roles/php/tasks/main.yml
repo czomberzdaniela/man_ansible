@@ -1,0 +1,14 @@
+---
+#- name: Add apt repository for latest PHP version
+#  raw: add-apt-repository ppa:ondrej/php5 -y
+
+#- name: update cache
+#  apt: update_cache=yes
+
+- name: install PHP packages
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - php5-cli
+    - php5-gd
+    - php5-curl
+    - php5-mysql

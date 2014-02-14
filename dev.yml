@@ -1,0 +1,13 @@
+---
+- hosts: dev
+  sudo: yes
+  vars:
+    vhost: dev.drupal.local
+  roles:
+    - common
+    - db
+    - apache
+    - php
+    - drupal
+    - dev
+

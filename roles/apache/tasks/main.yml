@@ -1,0 +1,12 @@
+---
+- name: Install Apache
+  apt: pkg={{ item }} state=installed
+  with_items:
+  - apache2
+#  - libapache2-mod-auth-mysql  The following packages have unmet dependencies:  libapache2-mod-auth-mysql : Depends: apache2.2-common (>= 2.2.3-3) but it is not going to be installed
+  - libapache2-mod-php5
+  notify:
+  - apache-restart
+
+- include: iptables.yml
+- include: vhost_add.yml
