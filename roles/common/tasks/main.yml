@@ -17,3 +17,7 @@
   - curl
   - mc
 
+- name: Add user {{ admin_user }} to www-data group
+  command: usermod -a -G www-data {{ admin_user }}
+
+
